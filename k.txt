@@ -1,0 +1,75 @@
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git checkout -b haara
+Switched to a new branch 'haara'
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git branch
+* haara
+  master
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git push origin haara
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git checkout master
+Switched to branch 'master'
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git branch
+  haara
+* master
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ gitk --all
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git checkout haara
+Switched to branch 'haara'
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git branch
+* haara
+  master
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: tiedosto2 haaraan
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ gitk --all
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git branch
+* haara
+  master
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git merge master
+Already up-to-date.
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git branch
+* haara
+  master
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ gitk --all
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git checkout master
+Switched to branch 'master'
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ ls -l
+total 12
+-rw------- 1 kxkyllon tkol 26 Apr 26 10:14 README.md
+-rw------- 1 kxkyllon tkol 14 Apr 26 10:17 tiedosto1.txt
+-rw------- 1 kxkyllon tkol 14 Apr 26 10:30 tiedosto3.txt
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git rebase haara
+First, rewinding head to replay your work on top of it...
+Fast-forwarded master to haara.
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git merge haara
+Already up-to-date.
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ gitk --all
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#
+nothing to commit (working directory clean)
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git push
+Counting objects: 3, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 244 bytes, done.
+Total 2 (delta 1), reused 0 (delta 0)
+To git@github.com:kxkyll/ohtu-viikko6.git
+   82bb1cf..66448be  master -> master
+ ! [rejected]        haara -> haara (non-fast-forward)
+error: failed to push some refs to 'git@github.com:kxkyll/ohtu-viikko6.git'
+To prevent you from losing history, non-fast-forward updates were rejected
+Merge the remote changes (e.g. 'git pull') before pushing again.  See the
+'Note about fast-forwards' section of 'git push --help' for details.
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git branch
+  haara
+* master
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git branch -d haara
+Deleted branch haara (was 66448be).
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git add .
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git status
+# On branch master
+nothing to commit (working directory clean)
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git push
+Everything up-to-date
+kxkyllon@wel-69:~/NetBeansProjects/ohtu-viikko6$ git push origin :haara
+To git@github.com:kxkyll/ohtu-viikko6.git
+ - [deleted]         haara
+
