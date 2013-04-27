@@ -73,8 +73,8 @@ public class IntJoukko {
         return alkioidenLkm;
     }
 
-    
-        public String toString() {
+    @Override
+    public String toString() {
         String alkiotMerkkijonona = "{";
         if (alkioidenLkm < 1) {
             return alkiotMerkkijonona + "}";
@@ -119,7 +119,7 @@ public class IntJoukko {
         }
         return false;
     }
-    
+
     public static IntJoukko erotus(IntJoukko ekaJoukko, IntJoukko tokaJoukko) {
         IntJoukko erotusJoukko = new IntJoukko();
         int[] ekaJoukkoTaulu = ekaJoukko.toIntArray();
@@ -128,7 +128,9 @@ public class IntJoukko {
             erotusJoukko.lisaa(ekaJoukkoTaulu[i]);
         }
         for (int i = 0; i < tokaJoukkoTaulu.length; i++) {
-            erotusJoukko.poista(i);
+            if (erotusJoukko.kuuluu(tokaJoukkoTaulu[i])) {
+                erotusJoukko.poista(tokaJoukkoTaulu[i]);
+            }
         }
         return erotusJoukko;
     }
@@ -160,11 +162,9 @@ public class IntJoukko {
         return yhdisteJoukko;
     }
 
-    
     public int[] toIntArray() {
         int[] taulu = new int[alkioidenLkm];
         System.arraycopy(joukonAlkiot, 0, taulu, 0, taulu.length);
         return taulu;
     }
-    
 }

@@ -7,51 +7,65 @@ import static org.junit.Assert.*;
 
 public class IntJoukkoTest {
 
-    IntJoukko joukko;
+    public IntJoukko ekaJoukko;
+    public IntJoukko tokaJoukko;
+    public IntJoukko tyhjaJoukko;
 
     @Before
     public void setUp() {
-        joukko = new IntJoukko();
-        joukko.lisaa(10);
-        joukko.lisaa(3);
+        ekaJoukko = new IntJoukko();
+        ekaJoukko.lisaa(10);
+        ekaJoukko.lisaa(3);
+        tokaJoukko = new IntJoukko();
+        tokaJoukko.lisaa(4);
+        tokaJoukko.lisaa(3);
+        tyhjaJoukko = new IntJoukko();
     }
 
     @Test
     public void lukujaLisattyMaara() {
-        joukko.lisaa(4);
-        assertEquals(3, joukko.mahtavuus());
+        ekaJoukko.lisaa(4);
+        assertEquals(3, ekaJoukko.mahtavuus());
     }
 
+@Test
+    public void tyhjanJoukonTulostusToimii() {
+        
+        assertEquals(0, tyhjaJoukko.mahtavuus());
+        assertEquals("{}", tyhjaJoukko.toString());
+    }
+
+    
     @Test
     public void samaLukuMeneeJoukkoonVaanKerran() {
-        joukko.lisaa(10);
-        joukko.lisaa(3);
-        assertEquals(2, joukko.mahtavuus());
+        ekaJoukko.lisaa(10);
+        ekaJoukko.lisaa(3);
+        assertEquals(2, ekaJoukko.mahtavuus());
     }
 
     @Test
     public void vainLisatytLuvutLoytyvat() {
-        assertTrue(joukko.kuuluu(10));
-        assertFalse(joukko.kuuluu(5));
-        assertTrue(joukko.kuuluu(3));
+        assertTrue(ekaJoukko.kuuluu(10));
+        assertFalse(ekaJoukko.kuuluu(5));
+        assertTrue(ekaJoukko.kuuluu(3));
     }
 
     @Test
     public void poistettuEiOleEnaaJoukossa() {
-        joukko.poista(3);
-        assertFalse(joukko.kuuluu(3));
-        assertEquals(1, joukko.mahtavuus());
+        ekaJoukko.poista(3);
+        assertFalse(ekaJoukko.kuuluu(3));
+        assertEquals(1, ekaJoukko.mahtavuus());
     }
     
     @Test
     public void palautetaanOikeaTaulukko() {
         int[] odotettu = {3, 55, 99};
         
-        joukko.lisaa(55);
-        joukko.poista(10);
-        joukko.lisaa(99);
+        ekaJoukko.lisaa(55);
+        ekaJoukko.poista(10);
+        ekaJoukko.lisaa(99);
 
-        int[] vastaus = joukko.toIntArray();
+        int[] vastaus = ekaJoukko.toIntArray();
         Arrays.sort(vastaus);
         assertArrayEquals(odotettu, vastaus);
     }
@@ -61,17 +75,36 @@ public class IntJoukkoTest {
     public void toimiiKasvatuksenJalkeen(){
         int[] lisattavat = {1,2,4,5,6,7,8,9,11,12,13,14};
         for (int luku : lisattavat) {
-            joukko.lisaa(luku);
+            ekaJoukko.lisaa(luku);
         }
-        assertEquals(14, joukko.mahtavuus());
-        assertTrue(joukko.kuuluu(11));
-        joukko.poista(11);
-        assertFalse(joukko.kuuluu(11));
-        assertEquals(13, joukko.mahtavuus());
+        assertEquals(14, ekaJoukko.mahtavuus());
+        assertTrue(ekaJoukko.kuuluu(11));
+        ekaJoukko.poista(11);
+        assertFalse(ekaJoukko.kuuluu(11));
+        assertEquals(13, ekaJoukko.mahtavuus());
+    }
+    
+    @Test
+    public void leikkausToimii(){
+        IntJoukko leikkausJoukko;
+        leikkausJoukko = IntJoukko.leikkaus(ekaJoukko, tokaJoukko);
+        System.out.println("leikkausjoukko: "  +leikkausJoukko.toString());
+        
+        assertTrue(leikkausJoukko.kuuluu(3));
+        assertEquals(1,leikkausJoukko.mahtavuus());
+    }
+    
+    @Test
+    public void erotusToimii(){
+        IntJoukko erotusJoukko;
+        erotusJoukko = IntJoukko.erotus(ekaJoukko, tokaJoukko);
+               
+        assertTrue(erotusJoukko.kuuluu(10));
+        assertEquals(1,erotusJoukko.mahtavuus());
     }
     
     @Test
     public void toStringToimii(){
-        assertEquals("{10, 3}", joukko.toString());
+        assertEquals("{10, 3}", ekaJoukko.toString());
     }
 }
