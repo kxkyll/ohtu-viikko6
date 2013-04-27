@@ -15,6 +15,7 @@ import olutopas.domain.Pub;
  * @author kxkyllon
  */
 public class BeerRepository {
+
     private EbeanServer server;
 
     public BeerRepository(EbeanServer server) {
@@ -22,7 +23,7 @@ public class BeerRepository {
     }
 
     public List<Pub> listPubs() {
-         return server.find(Pub.class).findList();
+        return server.find(Pub.class).findList();
     }
 
     public Beer readBeer(String name) {
@@ -52,6 +53,8 @@ public class BeerRepository {
     public void createPub(Pub pub) {
         server.save(pub);
     }
-    
-    
+
+    public List<Brewery> listBreweries() {
+        return server.find(Brewery.class).findList();
+    }
 }

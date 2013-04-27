@@ -52,6 +52,10 @@ public class BeerService {
     public void createPub(Pub pub) {
         beerRepository.createPub(pub);
     }
+
+    public List<Brewery> listBreweries() {
+       return beerRepository.listBreweries();
+    }
      
     
     

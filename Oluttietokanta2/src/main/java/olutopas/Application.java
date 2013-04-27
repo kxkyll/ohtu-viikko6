@@ -167,7 +167,7 @@ public class Application {
     }
 
     private void listBreweries() {
-        List<Brewery> breweries = server.find(Brewery.class).findList();
+        List<Brewery> breweries = beerService.listBreweries();//server.find(Brewery.class).findList();
         for (Brewery brewery : breweries) {
             System.out.println(brewery);
         }
@@ -184,7 +184,7 @@ public class Application {
             return;
         }
 
-        server.save(new Pub(name));
+        beerService.createPub(exists); //server.save(new Pub(name));
     }
 
     private void addBeer() {
@@ -208,7 +208,7 @@ public class Application {
         }
 
         brewery.addBeer(new Beer(name));
-        server.save(brewery);
+        beerService.createBrewery(brewery); // server.save(brewery);
         System.out.println(name + " added to " + brewery.getName());
     }
 
@@ -280,7 +280,7 @@ public class Application {
     private void removeBeerFromPub() {
         System.out.print("beer: ");
         String name = scanner.nextLine();
-        Beer beer = server.find(Beer.class).where().like("name", name).findUnique();
+        Beer beer = beerService.readBeer(name);//server.find(Beer.class).where().like("name", name).findUnique();
 
         if (beer == null) {
             System.out.println("does not exist");
@@ -289,7 +289,7 @@ public class Application {
 
         System.out.print("pub: ");
         name = scanner.nextLine();
-        Pub pub = server.find(Pub.class).where().like("name", name).findUnique();
+        Pub pub = beerService.readPub(name); //server.find(Pub.class).where().like("name", name).findUnique();
 
         if (pub == null) {
             System.out.println("does not exist");
@@ -301,7 +301,7 @@ public class Application {
         }
 
 
-        server.save(pub);
+        beerService.createPub(pub); //server.save(pub);
 
         System.out.println("Beer " + beer.getName() + " removed from pub " + pub.getName());
     }
