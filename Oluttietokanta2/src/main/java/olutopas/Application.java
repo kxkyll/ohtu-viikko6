@@ -15,9 +15,11 @@ import olutopas.domain.User;
 import olutopas.service.BeerService;
 import olutopas.service.DatabaseService;
 import olutopas.service.UserService;
+import olutopas.ui.Komentotehdas;
 
 public class Application {
 
+    private Komentotehdas komennot;
     private EbeanServer server;
     private Scanner scanner = new Scanner(System.in);
     private User userLoggedIn;
@@ -124,11 +126,11 @@ public class Application {
 
     private void findBeer() {
         System.out.print("beer to find: ");
-        String n = scanner.nextLine();
-        Beer foundBeer = server.find(Beer.class).where().like("name", n).findUnique();
+        String beerName = scanner.nextLine();
+        Beer foundBeer = beerService.readBeer(beerName); //server.find(Beer.class).where().like("name", n).findUnique();
 
         if (foundBeer == null) {
-            System.out.println(n + " not found");
+            System.out.println(beerName + " not found");
             return;
         }
 
@@ -150,11 +152,11 @@ public class Application {
 
     private void findBrewery() {
         System.out.print("brewery to find: ");
-        String n = scanner.nextLine();
-        Brewery foundBrewery = server.find(Brewery.class).where().like("name", n).findUnique();
+        String name = scanner.nextLine();
+        Brewery foundBrewery = beerService.readBrewery(name);//server.find(Brewery.class).where().like("name", n).findUnique();
 
         if (foundBrewery == null) {
-            System.out.println(n + " not found");
+            System.out.println(name + " not found");
             return;
         }
 
@@ -176,7 +178,7 @@ public class Application {
 
         String name = scanner.nextLine();
 
-        Pub exists = server.find(Pub.class).where().like("name", name).findUnique();
+        Pub exists = beerService.readPub(name);// server.find(Pub.class).where().like("name", name).findUnique();
         if (exists != null) {
             System.out.println(name + " exists already");
             return;
@@ -188,7 +190,7 @@ public class Application {
     private void addBeer() {
         System.out.print("to which brewery: ");
         String name = scanner.nextLine();
-        Brewery brewery = server.find(Brewery.class).where().like("name", name).findUnique();
+        Brewery brewery = beerService.readBrewery(name);// server.find(Brewery.class).where().like("name", name).findUnique();
 
         if (brewery == null) {
             System.out.println(name + " does not exist");
@@ -199,7 +201,7 @@ public class Application {
 
         name = scanner.nextLine();
 
-        Beer exists = server.find(Beer.class).where().like("name", name).findUnique();
+        Beer exists = beerService.readBeer(name);//server.find(Beer.class).where().like("name", name).findUnique();
         if (exists != null) {
             System.out.println(name + " exists already");
             return;
@@ -222,7 +224,7 @@ public class Application {
         }
 
 
-        server.delete(beerToDelete);
+        beerService.deleteBeer(beerToDelete.getName());//server.delete(beerToDelete);
         System.out.println("deleted: " + beerToDelete);
 
     }
@@ -230,7 +232,7 @@ public class Application {
     private void addBeerToPub() {
         System.out.print("beer: ");
         String name = scanner.nextLine();
-        Beer beer = server.find(Beer.class).where().like("name", name).findUnique();
+        Beer beer = beerService.readBeer(name);//server.find(Beer.class).where().like("name", name).findUnique();
 
         if (beer == null) {
             System.out.println("does not exist");
@@ -239,7 +241,7 @@ public class Application {
 
         System.out.print("pub: ");
         name = scanner.nextLine();
-        Pub pub = server.find(Pub.class).where().like("name", name).findUnique();
+        Pub pub = beerService.readPub(name);//server.find(Pub.class).where().like("name", name).findUnique();
 
         if (pub == null) {
             System.out.println("does not exist");
@@ -247,13 +249,13 @@ public class Application {
         }
 
         pub.addBeer(beer);
-        server.save(pub);
+        beerService.createPub(pub);//server.save(pub)
     }
 
     private void showBeersInPub() {
         System.out.print("pub: ");
         String name = scanner.nextLine();
-        Pub pub = server.find(Pub.class).where().like("name", name).findUnique();
+        Pub pub = beerService.readPub(name); //server.find(Pub.class).where().like("name", name).findUnique();
         if (pub == null) {
             System.out.println("No such pub " + name);
             return;
@@ -355,7 +357,7 @@ public class Application {
     }
 
     private void listBeers() {
-        List<Beer> beers = server.find(Beer.class).orderBy("brewery").findList();
+        List<Beer> beers = beerService.listBeers();//server.find(Beer.class).orderBy("brewery").findList();
 
         if (beers.isEmpty() || beers == null) {
             System.out.println("no beers available");
@@ -371,23 +373,23 @@ public class Application {
 
         String name = scanner.nextLine();
 
-        Brewery exists = server.find(Brewery.class).where().like("name", name).findUnique();
+        Brewery exists = beerService.readBrewery(name);//server.find(Brewery.class).where().like("name", name).findUnique();
         if (exists != null) {
             System.out.println(name + " exists already");
             return;
         }
 
-        server.save(new Brewery(name));
+        beerService.createBrewery(new Brewery(name)); // server.save(new Brewery(name));
         System.out.println("Brewery " + name + " added");
     }
 
     private void deleteBrewery() {
         System.out.print("brewery to delete: ");
-        String n = scanner.nextLine();
-        Brewery breweryToDelete = server.find(Brewery.class).where().like("name", n).findUnique();
+        String name = scanner.nextLine();
+        Brewery breweryToDelete = beerService.readBrewery(name);//server.find(Brewery.class).where().like("name", n).findUnique();
 
         if (breweryToDelete == null) {
-            System.out.println(n + " not found");
+            System.out.println(name + " not found");
             return;
         }
 
