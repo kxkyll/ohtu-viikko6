@@ -20,7 +20,7 @@ public class Beer {
     Brewery brewery;
 
     // mapped by tarkoittaa että tämä ei Beer:in tallettava taulu _ei_ ole omistava puoli
-    @ManyToMany(mappedBy = "beers", cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "beers")
     List<Pub> pubs;
 
     public Beer() {
