@@ -9,6 +9,7 @@ import java.util.List;
 import olutopas.domain.Beer;
 import olutopas.domain.Brewery;
 import olutopas.domain.Pub;
+import olutopas.domain.Rating;
 
 /**
  *
@@ -65,5 +66,25 @@ public class BeerRepository implements BeerRepositoryInterface {
     @Override
     public List<Brewery> listBreweries() {
         return server.find(Brewery.class).findList();
+    }
+
+    @Override
+    public void deleteBrewery(Brewery breweryToDelete) {
+        server.delete(breweryToDelete);
+    }
+
+    @Override
+    public void saveRating(Rating rating) {
+        server.save(rating);
+    }
+
+    @Override
+    public List<Rating> fingRating(String who) {
+        return server.find(Rating.class).where().eq("user.name", who).findList();
+    }
+
+    @Override
+    public List<Rating> getRatings(String name) {
+        return server.find(Rating.class).where().eq("beer.name", name).findList();
     }
 }

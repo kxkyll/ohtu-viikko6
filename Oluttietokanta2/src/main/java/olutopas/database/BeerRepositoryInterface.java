@@ -8,6 +8,7 @@ import java.util.List;
 import olutopas.domain.Beer;
 import olutopas.domain.Brewery;
 import olutopas.domain.Pub;
+import olutopas.domain.Rating;
 
 /**
  *
@@ -32,5 +33,13 @@ public interface BeerRepositoryInterface {
     Brewery readBrewery(String name);
 
     Pub readPub(String name);
+
+    public void deleteBrewery(Brewery breweryToDelete);
+
+    public void saveRating(Rating rating);
+
+    List <Rating> fingRating(String who);
+
+    public List<Rating> getRatings(String name);
     
 }

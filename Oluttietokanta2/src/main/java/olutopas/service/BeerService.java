@@ -6,18 +6,20 @@ package olutopas.service;
 
 import java.util.List;
 import olutopas.database.BeerRepository;
+import olutopas.database.BeerRepositoryInterface;
 import olutopas.domain.Beer;
 import olutopas.domain.Brewery;
 import olutopas.domain.Pub;
+import olutopas.domain.Rating;
 
 /**
  *
  * @author kxkyllon
  */
 public class BeerService {
-     private BeerRepository beerRepository;
+     private BeerRepositoryInterface beerRepository;
 
-    public BeerService(BeerRepository beerRepository) {
+    public BeerService(BeerRepositoryInterface beerRepository) {
         this.beerRepository = beerRepository;
     }
 
@@ -55,6 +57,22 @@ public class BeerService {
 
     public List<Brewery> listBreweries() {
        return beerRepository.listBreweries();
+    }
+
+    public void deleteBrewery(Brewery breweryToDelete) {
+        beerRepository.deleteBrewery(breweryToDelete);
+    }
+
+    public void saveRating(Rating rating) {
+        beerRepository.saveRating(rating);
+    }
+
+    public List<Rating> fingRating(String who) {
+        return beerRepository.fingRating(who);
+    }
+
+    public List<Rating> getRatings(String name) {
+        return beerRepository.getRatings(name);
     }
      
     

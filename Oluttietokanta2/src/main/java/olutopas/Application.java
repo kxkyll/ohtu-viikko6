@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import javax.persistence.OptimisticLockException;
 import olutopas.database.BeerRepository;
+import olutopas.database.BeerRepositoryInterface;
 import olutopas.database.UserRepository;
 import olutopas.database.UserRepositoryInterface;
 import olutopas.domain.Beer;
@@ -27,22 +28,23 @@ public class Application {
     private UserService userService;
     private UserRepositoryInterface userRepository;
     private BeerService beerService;
-    private BeerRepository/*Interface*/ beerRepository;
+    private BeerRepositoryInterface beerRepository;
 
-    public Application(EbeanServer server) {
-        this.server = server;
-        this.databaseService = new DatabaseService(server);
-        this.userRepository = new UserRepository(server);
-        this.userService = new UserService(userRepository);
-        this.beerRepository = new BeerRepository(server);
-        this.beerService = new BeerService(beerRepository);
+    public Application(UserRepositoryInterface userRepo, BeerRepositoryInterface beerRepo) {
+        //this.server = server;
+        //this.databaseService = new DatabaseService(server);
+        //this.userRepository = new UserRepository(server);
+        this.userService = new UserService(userRepo);
+        //this.beerRepository = new BeerRepository(server);
+        this.beerService = new BeerService(beerRepo);
 
     }
 
-    public void run(boolean newDatabase) {
-        if (newDatabase) {
-            databaseService.seedDatabase();
-        }
+    //public void run(boolean newDatabase) {
+        public void run() {
+//        if (newDatabase) {
+//            databaseService.seedDatabase();
+//        }
         userLoggedIn = login();
 
         if (userLoggedIn == null) {
@@ -393,7 +395,7 @@ public class Application {
             return;
         }
 
-        server.delete(breweryToDelete);
+        beerService.deleteBrewery(breweryToDelete);//server.delete(breweryToDelete);
         System.out.println("deleted: " + breweryToDelete);
     }
 
@@ -403,7 +405,7 @@ public class Application {
         if (!givenRate.isEmpty()) {
             int rate = Integer.parseInt(givenRate);
             Rating rating = new Rating(foundBeer, userLoggedIn, rate);
-            server.save(rating);
+            beerService.saveRating(rating); // server.save(rating);
         }
     }
 
@@ -411,14 +413,14 @@ public class Application {
         String who = userLoggedIn.getName();
 
         List<Rating> ratings;
-        ratings = server.find(Rating.class).where().eq("user.name", who).findList();
+        ratings = beerService.fingRating(who); //server.find(Rating.class).where().eq("user.name", who).findList();
         for (Rating rating : ratings) {
             System.out.println(rating);
         }
     }
 
     private void getDoneRatings(String name) {
-        List<Rating> ratings = server.find(Rating.class).where().eq("beer.name", name).findList();
+        List<Rating> ratings = beerService.getRatings(name); //server.find(Rating.class).where().eq("beer.name", name).findList();
         double keskiarvo = 0;
         for (Rating rating : ratings) {
             System.out.println(rating);
