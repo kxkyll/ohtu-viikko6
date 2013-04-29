@@ -10,10 +10,16 @@ import java.util.Scanner;
  *
  * @author kxkyllon
  */
-public class Tuntematon {
+public class Tuntematon implements Komento {
+
+    private Scanner scanner;
 
     Tuntematon(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    @Override
+    public void suorita() {
         System.out.println("tuntematon komento");
     }
-    
 }

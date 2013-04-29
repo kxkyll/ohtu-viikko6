@@ -21,6 +21,10 @@ public class Komentotehdas {
         komennot = new HashMap<String, Komento>();
         komennot.put("1", new FindBrewery(beerService, scanner));
         komennot.put("2", new FindBeer(beerService, scanner, user));
+        komennot.put("3", new AddBeer(beerService, scanner));
+        komennot.put("4", new ListBreweries(beerService, scanner));
+        komennot.put("tuntematon", new Tuntematon(scanner));
+        
 
     }
  

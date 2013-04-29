@@ -30,7 +30,6 @@ public class Application {
     private UserRepositoryInterface userRepository;
     private BeerService beerService;
     private BeerRepositoryInterface beerRepository;
-    
 
     public Application(UserRepositoryInterface userRepo, BeerRepositoryInterface beerRepo) {
         //this.server = server;
@@ -39,12 +38,12 @@ public class Application {
         this.userService = new UserService(userRepo);
         //this.beerRepository = new BeerRepository(server);
         this.beerService = new BeerService(beerRepo);
-        
+
 
     }
 
     //public void run(boolean newDatabase) {
-        public void run() {
+    public void run() {
 //        if (newDatabase) {
 //            databaseService.seedDatabase();
 //        }
@@ -57,7 +56,7 @@ public class Application {
         }
 
         this.komennot = new Komentotehdas(beerService, scanner, userLoggedIn);
-        
+
         System.out.println("");
 
         System.out.println("\nWelcome to Ratebeer " + userLoggedIn.getName());
@@ -67,20 +66,29 @@ public class Application {
             System.out.print("> ");
             String command = scanner.nextLine();
 
+            Komento komento = komennot.hae(command);
+            if (komento != null) {
+                komento.suorita();
+            }
+
             if (command.equals("0")) {
                 break;
             } else if (command.equals("1")) {
                 //findBrewery();
-                Komento komento = komennot.hae("1");
-                komento.suorita();
+//                komento = komennot.hae("1");
+//                komento.suorita();
+                continue;
             } else if (command.equals("2")) {
-                Komento komento = komennot.hae("2");
-                komento.suorita();
+//                komento = komennot.hae("2");
+//                komento.suorita();
                 //findBeer();
+                continue;
             } else if (command.equals("3")) {
-                addBeer();
+                //addBeer();
+                continue;
             } else if (command.equals("4")) {
-                listBreweries();
+                //listBreweries();
+                continue;
             } else if (command.equals("5")) {
                 deleteBeer();
             } else if (command.equals("6")) {
@@ -103,9 +111,9 @@ public class Application {
                 listMyRatings();
             } else if (command.equals("l")) {
                 listUsers();
-            } else {
+            } /*else {
                 System.out.println("unknown command");
-            }
+            }*/
 
             System.out.print("\npress enter to continue");
             scanner.nextLine();
@@ -150,13 +158,12 @@ public class Application {
 //            System.out.println("   " + bier.getName());
 //        }
 //    }
-
-    private void listBreweries() {
-        List<Brewery> breweries = beerService.listBreweries();//server.find(Brewery.class).findList();
-        for (Brewery brewery : breweries) {
-            System.out.println(brewery);
-        }
-    }
+//    private void listBreweries() {
+//        List<Brewery> breweries = beerService.listBreweries();//server.find(Brewery.class).findList();
+//        for (Brewery brewery : breweries) {
+//            System.out.println(brewery);
+//        }
+//    }
 
     private void addPub() {
         System.out.print("pub to add: ");
@@ -382,7 +389,6 @@ public class Application {
         System.out.println("deleted: " + breweryToDelete);
     }
 
-
     private void listMyRatings() {
         String who = userLoggedIn.getName();
 
@@ -392,5 +398,4 @@ public class Application {
             System.out.println(rating);
         }
     }
-
 }

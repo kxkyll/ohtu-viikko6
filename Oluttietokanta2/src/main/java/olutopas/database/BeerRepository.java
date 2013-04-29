@@ -45,7 +45,7 @@ public class BeerRepository implements BeerRepositoryInterface {
 
     @Override
     public void createBrewery(Brewery brewery) {
-        server.save(new Brewery(brewery.getName()));
+        server.save(brewery);
     }
 
     @Override
