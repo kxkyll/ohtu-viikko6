@@ -32,7 +32,7 @@ public class FindBeer implements Komento {
     private void findBeer() {
         System.out.print("beer to find: ");
         String beerName = scanner.nextLine();
-        Beer foundBeer = beerService.readBeer(beerName); //server.find(Beer.class).where().like("name", n).findUnique();
+        Beer foundBeer = beerService.readBeer(beerName); 
 
         if (foundBeer == null) {
             System.out.println(beerName + " not found");
@@ -56,7 +56,7 @@ public class FindBeer implements Komento {
     }
 
     private void getDoneRatings(String name) {
-        List<Rating> ratings = beerService.getRatings(name); //server.find(Rating.class).where().eq("beer.name", name).findList();
+        List<Rating> ratings = beerService.getRatings(name); 
         double keskiarvo = 0;
         for (Rating rating : ratings) {
             System.out.println(rating);
@@ -76,7 +76,7 @@ public class FindBeer implements Komento {
         if (!givenRate.isEmpty()) {
             int rate = Integer.parseInt(givenRate);
             Rating rating = new Rating(foundBeer, userLoggedIn, rate);
-            beerService.saveRating(rating); // server.save(rating);
+            beerService.saveRating(rating); 
         }
     }
 

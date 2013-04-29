@@ -31,7 +31,7 @@ public class RemoveBeerFromPub implements Komento {
     private void removeBeerFromPub() {
         System.out.print("beer: ");
         String name = scanner.nextLine();
-        Beer beer = beerService.readBeer(name);//server.find(Beer.class).where().like("name", name).findUnique();
+        Beer beer = beerService.readBeer(name);
 
         if (beer == null) {
             System.out.println("does not exist");
@@ -40,7 +40,7 @@ public class RemoveBeerFromPub implements Komento {
 
         System.out.print("pub: ");
         name = scanner.nextLine();
-        Pub pub = beerService.readPub(name); //server.find(Pub.class).where().like("name", name).findUnique();
+        Pub pub = beerService.readPub(name); 
 
         if (pub == null) {
             System.out.println("does not exist");
@@ -52,7 +52,7 @@ public class RemoveBeerFromPub implements Komento {
         }
 
 
-        beerService.createPub(pub); //server.save(pub);
+        beerService.createPub(pub); 
 
         System.out.println("Beer " + beer.getName() + " removed from pub " + pub.getName());
     }

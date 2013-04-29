@@ -36,7 +36,7 @@ public class ListMyRatings implements Komento{
         String who = userLoggedIn.getName();
 
         List<Rating> ratings;
-        ratings = beerService.fingRating(who); //server.find(Rating.class).where().eq("user.name", who).findList();
+        ratings = beerService.fingRating(who); 
         for (Rating rating : ratings) {
             System.out.println(rating);
         }

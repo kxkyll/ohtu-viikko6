@@ -32,13 +32,13 @@ public class AddBrewery implements Komento {
 
         String name = scanner.nextLine();
 
-        Brewery exists = beerService.readBrewery(name);//server.find(Brewery.class).where().like("name", name).findUnique();
+        Brewery exists = beerService.readBrewery(name);
         if (exists != null) {
             System.out.println(name + " exists already");
             return;
         }
 
-        beerService.createBrewery(new Brewery(name)); // server.save(new Brewery(name));
+        beerService.createBrewery(new Brewery(name)); 
         System.out.println("Brewery " + name + " added");
     }
 }

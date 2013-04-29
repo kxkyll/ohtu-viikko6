@@ -29,7 +29,7 @@ public class ListBreweries implements Komento {
     }
 
     private void listBreweries() {
-        List<Brewery> breweries = beerService.listBreweries();//server.find(Brewery.class).findList();
+        List<Brewery> breweries = beerService.listBreweries();
         for (Brewery brewery : breweries) {
             System.out.println(brewery);
         }

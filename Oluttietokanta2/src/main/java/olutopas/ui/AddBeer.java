@@ -31,7 +31,7 @@ public class AddBeer implements Komento {
     private void addBeer() {
         System.out.print("to which brewery: ");
         String name = scanner.nextLine();
-        Brewery brewery = beerService.readBrewery(name);// server.find(Brewery.class).where().like("name", name).findUnique();
+        Brewery brewery = beerService.readBrewery(name);
 
         if (brewery == null) {
             System.out.println(name + " does not exist");
@@ -42,14 +42,14 @@ public class AddBeer implements Komento {
 
         name = scanner.nextLine();
 
-        Beer exists = beerService.readBeer(name);//server.find(Beer.class).where().like("name", name).findUnique();
+        Beer exists = beerService.readBeer(name);
         if (exists != null) {
             System.out.println(name + " exists already");
             return;
         }
 
         brewery.addBeer(new Beer(name));
-        beerService.createBrewery(brewery); // server.save(brewery);
+        beerService.createBrewery(brewery); 
         System.out.println(name + " added to " + brewery.getName());
     }
 }

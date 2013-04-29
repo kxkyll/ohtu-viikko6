@@ -29,7 +29,7 @@ public class ListBeers implements Komento {
     }
 
     private void listBeers() {
-        List<Beer> beers = beerService.listBeers();//server.find(Beer.class).orderBy("brewery").findList();
+        List<Beer> beers = beerService.listBeers();
 
         if (beers.isEmpty() || beers == null) {
             System.out.println("no beers available");

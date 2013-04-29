@@ -33,7 +33,7 @@ public class FindBrewery implements Komento{
         System.out.print("brewery to find: ");
         String name = scanner.nextLine();
  
-        Brewery foundBrewery = beerService.readBrewery(name);//server.find(Brewery.class).where().like("name", n).findUnique();
+        Brewery foundBrewery = beerService.readBrewery(name);
 
         if (foundBrewery == null) {
             System.out.println(name + " not found");

@@ -40,7 +40,7 @@ public class AddBeerToPub implements Komento {
 
         System.out.print("pub: ");
         name = scanner.nextLine();
-        Pub pub = beerService.readPub(name);//server.find(Pub.class).where().like("name", name).findUnique();
+        Pub pub = beerService.readPub(name);
 
         if (pub == null) {
             System.out.println("does not exist");
@@ -48,6 +48,6 @@ public class AddBeerToPub implements Komento {
         }
 
         pub.addBeer(beer);
-        beerService.createPub(pub);//server.save(pub)
+        beerService.createPub(pub);
     }
 }

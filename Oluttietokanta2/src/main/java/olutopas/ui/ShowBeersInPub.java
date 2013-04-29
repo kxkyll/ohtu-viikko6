@@ -33,7 +33,7 @@ public class ShowBeersInPub implements Komento{
         private void showBeersInPub() {
         System.out.print("pub: ");
         String name = scanner.nextLine();
-        Pub pub = beerService.readPub(name); //server.find(Pub.class).where().like("name", name).findUnique();
+        Pub pub = beerService.readPub(name); 
         if (pub == null) {
             System.out.println("No such pub " + name);
             return;

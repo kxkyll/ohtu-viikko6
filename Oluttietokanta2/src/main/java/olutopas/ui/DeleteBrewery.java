@@ -30,14 +30,14 @@ public class DeleteBrewery implements Komento {
     private void deleteBrewery() {
         System.out.print("brewery to delete: ");
         String name = scanner.nextLine();
-        Brewery breweryToDelete = beerService.readBrewery(name);//server.find(Brewery.class).where().like("name", n).findUnique();
+        Brewery breweryToDelete = beerService.readBrewery(name);
 
         if (breweryToDelete == null) {
             System.out.println(name + " not found");
             return;
         }
 
-        beerService.deleteBrewery(breweryToDelete);//server.delete(breweryToDelete);
+        beerService.deleteBrewery(breweryToDelete);
         System.out.println("deleted: " + breweryToDelete);
     }
 }
