@@ -47,8 +47,8 @@ public class BeerService {
         return beerRepository.readPub(name);
     }
 
-    public void deleteBeer(String beerName) {
-        beerRepository.deleteBeer(beerName);
+    public void deleteBeer(Beer beer) {
+        beerRepository.deleteBeer(beer);
     }
 
     public void createPub(Pub pub) {

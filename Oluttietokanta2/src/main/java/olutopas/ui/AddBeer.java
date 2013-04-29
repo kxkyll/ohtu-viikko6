@@ -13,23 +13,21 @@ import olutopas.service.BeerService;
  *
  * @author kxkyllon
  */
-public class AddBeer implements Komento{
+public class AddBeer implements Komento {
 
-    
     private BeerService beerService;
     private Scanner scanner;
 
     public AddBeer(BeerService beerService, Scanner scanner) {
         this.beerService = beerService;
         this.scanner = scanner;
-    }    
-    
-    
+    }
+
     @Override
     public void suorita() {
         addBeer();
     }
-    
+
     private void addBeer() {
         System.out.print("to which brewery: ");
         String name = scanner.nextLine();
@@ -54,5 +52,4 @@ public class AddBeer implements Komento{
         beerService.createBrewery(brewery); // server.save(brewery);
         System.out.println(name + " added to " + brewery.getName());
     }
-    
 }

@@ -54,8 +54,8 @@ public class BeerRepository implements BeerRepositoryInterface {
     }
 
     @Override
-    public void deleteBeer(String beerName) {
-        server.delete(beerName);
+    public void deleteBeer(Beer beer) {
+        server.delete(beer);
     }
 
     @Override

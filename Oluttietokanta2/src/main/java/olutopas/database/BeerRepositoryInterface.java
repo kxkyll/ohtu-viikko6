@@ -20,7 +20,7 @@ public interface BeerRepositoryInterface {
 
     void createPub(Pub pub);
 
-    void deleteBeer(String beerName);
+    void deleteBeer(Beer beer);
 
     List<Beer> listBeers();
 

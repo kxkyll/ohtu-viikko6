@@ -10,5 +10,5 @@ package olutopas.ui;
  */
 public interface Komento {
     public void suorita();
-    
+        
 }

@@ -17,8 +17,8 @@ import olutopas.service.BeerService;
  *
  * @author kxkyllon
  */
-public class FindBeer implements Komento{
-    
+public class FindBeer implements Komento {
+
     private BeerService beerService;
     private Scanner scanner;
     private User userLoggedIn;
@@ -28,9 +28,7 @@ public class FindBeer implements Komento{
         this.scanner = scanner;
         this.userLoggedIn = userLoggedIn;
     }
-    
-    
-    
+
     private void findBeer() {
         System.out.print("beer to find: ");
         String beerName = scanner.nextLine();
@@ -56,6 +54,7 @@ public class FindBeer implements Komento{
         getDoneRatings(foundBeer.getName());
         askRating(foundBeer);
     }
+
     private void getDoneRatings(String name) {
         List<Rating> ratings = beerService.getRatings(name); //server.find(Rating.class).where().eq("beer.name", name).findList();
         double keskiarvo = 0;
@@ -70,8 +69,8 @@ public class FindBeer implements Komento{
         }
         System.out.println("no ratings");
     }
-    
-       private void askRating(Beer foundBeer) throws NumberFormatException, OptimisticLockException {
+
+    private void askRating(Beer foundBeer) throws NumberFormatException, OptimisticLockException {
         System.out.println("give rating (leave emtpy if not): ");
         String givenRate = scanner.nextLine();
         if (!givenRate.isEmpty()) {
@@ -85,5 +84,4 @@ public class FindBeer implements Komento{
     public void suorita() {
         findBeer();
     }
-    
 }

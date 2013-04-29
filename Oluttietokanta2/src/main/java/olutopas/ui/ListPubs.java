@@ -6,32 +6,33 @@ package olutopas.ui;
 
 import java.util.List;
 import java.util.Scanner;
-import olutopas.domain.Brewery;
+import olutopas.domain.Pub;
 import olutopas.service.BeerService;
 
 /**
  *
- * @author kxkyllon
+ * @author Kati
  */
-public class ListBreweries implements Komento {
+public class ListPubs implements Komento {
 
     private BeerService beerService;
     private Scanner scanner;
 
-    public ListBreweries(BeerService beerService, Scanner scanner) {
+    public ListPubs(BeerService beerService, Scanner scanner) {
         this.beerService = beerService;
         this.scanner = scanner;
     }
 
+    
     @Override
     public void suorita() {
-        listBreweries();
+        listPubs();
     }
 
-    private void listBreweries() {
-        List<Brewery> breweries = beerService.listBreweries();//server.find(Brewery.class).findList();
-        for (Brewery brewery : breweries) {
-            System.out.println(brewery);
+    private void listPubs() {
+        List<Pub> pubs = beerService.listPubs();
+        for (Pub pub : pubs) {
+            System.out.println(pub);
         }
     }
 }

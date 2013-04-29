@@ -22,4 +22,5 @@ public class Tuntematon implements Komento {
     public void suorita() {
         System.out.println("tuntematon komento");
     }
+
 }

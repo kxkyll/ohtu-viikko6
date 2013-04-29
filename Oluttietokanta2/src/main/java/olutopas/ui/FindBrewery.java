@@ -45,5 +45,5 @@ public class FindBrewery implements Komento{
             System.out.println("   " + bier.getName());
         }
     }
-    
+  
 }
