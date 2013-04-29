@@ -16,6 +16,7 @@ import olutopas.domain.User;
 import olutopas.service.BeerService;
 import olutopas.service.DatabaseService;
 import olutopas.service.UserService;
+import olutopas.ui.Komento;
 import olutopas.ui.Komentotehdas;
 
 public class Application {
@@ -29,6 +30,7 @@ public class Application {
     private UserRepositoryInterface userRepository;
     private BeerService beerService;
     private BeerRepositoryInterface beerRepository;
+    
 
     public Application(UserRepositoryInterface userRepo, BeerRepositoryInterface beerRepo) {
         //this.server = server;
@@ -37,6 +39,7 @@ public class Application {
         this.userService = new UserService(userRepo);
         //this.beerRepository = new BeerRepository(server);
         this.beerService = new BeerService(beerRepo);
+        
 
     }
 
@@ -53,6 +56,8 @@ public class Application {
             return;
         }
 
+        this.komennot = new Komentotehdas(beerService, scanner, userLoggedIn);
+        
         System.out.println("");
 
         System.out.println("\nWelcome to Ratebeer " + userLoggedIn.getName());
@@ -65,9 +70,13 @@ public class Application {
             if (command.equals("0")) {
                 break;
             } else if (command.equals("1")) {
-                findBrewery();
+                //findBrewery();
+                Komento komento = komennot.hae("1");
+                komento.suorita();
             } else if (command.equals("2")) {
-                findBeer();
+                Komento komento = komennot.hae("2");
+                komento.suorita();
+                //findBeer();
             } else if (command.equals("3")) {
                 addBeer();
             } else if (command.equals("4")) {
@@ -111,62 +120,36 @@ public class Application {
         System.out.println("2   find/rate beer");
         System.out.println("3   add beer");
         System.out.println("4   list breweries");
-        System.out.println("5   delete beer");
-        System.out.println("6   add pub");
-        System.out.println("7   add beer to pub");
-        System.out.println("8   show beers in pub");
-        System.out.println("9   list pubs");
-        System.out.println("10  remove beer from pub");
+        System.out.println("5   delete beer");// tää pois
+        System.out.println("6   add pub"); // tää pois
+        System.out.println("7   add beer to pub"); // tää pois
+        System.out.println("8   show beers in pub"); // tää pois
+        System.out.println("9   list pubs"); // tää pois
+        System.out.println("10  remove beer from pub"); // tää pois
         System.out.println("11  list beers");
         System.out.println("12  add brewery");
-        System.out.println("13  delete brewery");
+        System.out.println("13  delete brewery");// tää pois
         System.out.println("14  show my ratings");
         System.out.println("l   list users");
         System.out.println("0   quit");
         System.out.println("");
     }
 
-    private void findBeer() {
-        System.out.print("beer to find: ");
-        String beerName = scanner.nextLine();
-        Beer foundBeer = beerService.readBeer(beerName); //server.find(Beer.class).where().like("name", n).findUnique();
-
-        if (foundBeer == null) {
-            System.out.println(beerName + " not found");
-            return;
-        }
-
-        System.out.println(foundBeer);
-
-
-        if (foundBeer.getPubs() == null || foundBeer.getPubs().isEmpty()) {
-            System.out.println("  not available currently in any pub!");
-
-        } else {
-            System.out.println("  available now in:");
-            for (Pub pub : foundBeer.getPubs()) {
-                System.out.println("   " + pub);
-            }
-        }
-        getDoneRatings(foundBeer.getName());
-        askRating(foundBeer);
-    }
-
-    private void findBrewery() {
-        System.out.print("brewery to find: ");
-        String name = scanner.nextLine();
-        Brewery foundBrewery = beerService.readBrewery(name);//server.find(Brewery.class).where().like("name", n).findUnique();
-
-        if (foundBrewery == null) {
-            System.out.println(name + " not found");
-            return;
-        }
-
-        System.out.println(foundBrewery);
-        for (Beer bier : foundBrewery.getBeers()) {
-            System.out.println("   " + bier.getName());
-        }
-    }
+//    private void findBrewery() {
+//        System.out.print("brewery to find: ");
+//        String name = scanner.nextLine();
+//        Brewery foundBrewery = beerService.readBrewery(name);//server.find(Brewery.class).where().like("name", n).findUnique();
+//
+//        if (foundBrewery == null) {
+//            System.out.println(name + " not found");
+//            return;
+//        }
+//
+//        System.out.println(foundBrewery);
+//        for (Beer bier : foundBrewery.getBeers()) {
+//            System.out.println("   " + bier.getName());
+//        }
+//    }
 
     private void listBreweries() {
         List<Brewery> breweries = beerService.listBreweries();//server.find(Brewery.class).findList();
@@ -399,15 +382,6 @@ public class Application {
         System.out.println("deleted: " + breweryToDelete);
     }
 
-    private void askRating(Beer foundBeer) throws NumberFormatException, OptimisticLockException {
-        System.out.println("give rating (leave emtpy if not): ");
-        String givenRate = scanner.nextLine();
-        if (!givenRate.isEmpty()) {
-            int rate = Integer.parseInt(givenRate);
-            Rating rating = new Rating(foundBeer, userLoggedIn, rate);
-            beerService.saveRating(rating); // server.save(rating);
-        }
-    }
 
     private void listMyRatings() {
         String who = userLoggedIn.getName();
@@ -419,18 +393,4 @@ public class Application {
         }
     }
 
-    private void getDoneRatings(String name) {
-        List<Rating> ratings = beerService.getRatings(name); //server.find(Rating.class).where().eq("beer.name", name).findList();
-        double keskiarvo = 0;
-        for (Rating rating : ratings) {
-            System.out.println(rating);
-            keskiarvo += rating.getValue();
-        }
-        if (!ratings.isEmpty()) {
-            keskiarvo = keskiarvo / ratings.size();
-            System.out.println("number of ratings: " + ratings.size() + " average " + keskiarvo);
-            return;
-        }
-        System.out.println("no ratings");
-    }
 }

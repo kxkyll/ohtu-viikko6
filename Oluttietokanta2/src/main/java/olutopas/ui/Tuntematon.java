@@ -4,11 +4,16 @@
  */
 package olutopas.ui;
 
+import java.util.Scanner;
+
 /**
  *
  * @author kxkyllon
  */
-public interface Komento {
-    public void suorita();
+public class Tuntematon {
+
+    Tuntematon(Scanner scanner) {
+        System.out.println("tuntematon komento");
+    }
     
 }
